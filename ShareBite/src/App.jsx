@@ -1,15 +1,15 @@
-import { useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage.jsx";
+import AvailableFoodPage from "./pages/AvailableFoodPage.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <>
-    <div className="bg-red-300 text-2xl">test</div>
-  </>;
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/food" element={<AvailableFoodPage />} />
+      <Route path="/pages/food.html" element={<AvailableFoodPage />} />
+    </Routes>
+  );
 }
 
 export default App;

@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand: #1f5c3a;
+  --color-brand-dark: #17452c;
+  --color-tomato: #e4472b;
+  --color-tomato-dark: #c93a20;
+  --color-mango: #f5b83d;
+  --color-ink: #1e2a24;
+  --color-muted: #55655c;
+  --color-tint: #f3f7f2;
+  --color-line: #e1e8e2;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --animate-float: float 5s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.25rem;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-mango);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-float {
+    animation: none;
+  }
+}
