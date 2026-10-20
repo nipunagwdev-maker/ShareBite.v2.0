@@ -5,14 +5,16 @@ import SiteHeader from "../components/SiteHeader.jsx";
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-white font-sans text-[17px] leading-relaxed text-ink">
+    <>
       <SiteHeader />
-      <main>
-        <HomeHero />
-        <HowItWorks />
-      </main>
-      <SiteFooter />
-    </div>
+      <div className="min-h-screen bg-white font-sans text-[17px] leading-relaxed text-ink">
+        <main>
+          <HomeHero />
+          <HowItWorks />
+        </main>
+        <SiteFooter />
+      </div>
+    </>
   );
 }
 

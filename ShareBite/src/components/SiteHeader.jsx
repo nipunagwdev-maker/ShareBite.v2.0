@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Contact from "../pages/Contact";
+import Posts from "../pages/Posts";
+import LoginPage from "../pages/LoginPage";
 
 const navigationLinks = [
   { label: "Home", to: "/" },
   { label: "Available Food", to: "/food" },
   { label: "Posts", to: "/posts" },
-  { label: "Tracking", href: "/#about" },
-  { label: "Login", href: "/#contact" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Login", to: "/LoginPage" },
+  { label: "Contact", to: "/Contact" },
 ];
 
 const linkStyle =

@@ -67,7 +67,8 @@ function AvailableFoodPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans text-ink">
-      <SiteHeader foodPage />
+      <SiteHeader />
+
       <main className="flex-1">
         <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-14 md:grid-cols-2 md:py-24">
           <div>
