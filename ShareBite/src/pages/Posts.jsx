@@ -2,25 +2,13 @@ import { useEffect, useState } from "react";
 import SiteFooter from "../components/SiteFooter.jsx";
 import SiteHeader from "../components/SiteHeader.jsx";
 import FoodCard from "../components/FoodCard.jsx";
-import { STORAGE_KEY, loadPosts } from "../utils/postStorage.js";
+import { STORAGE_KEY, loadPosts } from "../utils/postsStorage.js";
 
 const inputStyle =
   "w-full rounded-xl border-2 border-line bg-white px-4 py-3 transition focus:border-brand focus:outline-none";
 
-const STORAGE_KEY = "sharebite-posts";
-
 function Posts() {
-  // Load saved posts once, when the page first opens
-  //deleted one element
-  const [posts, setPosts] = useState((loadPosts) => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
-
+  const [posts, setPosts] = useState(loadPosts);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -30,7 +18,7 @@ function Posts() {
   }, [posts]);
 
   function handleSubmit(event) {
-    event.preventDefault(); // stop the browser from reloading the page
+    event.preventDefault();
     if (!title.trim()) return;
 
     const newPost = {
@@ -49,7 +37,6 @@ function Posts() {
       <SiteHeader />
 
       <main className="flex-1">
-        {/* Top section: heading + form card */}
         <section className="mx-auto max-w-2xl px-6 py-14 md:py-20">
           <h1 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl">
             Share your surplus food
@@ -105,7 +92,6 @@ function Posts() {
           </form>
         </section>
 
-        {/* Bottom section: posts grid */}
         <section className="bg-tint py-16">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="text-3xl font-bold tracking-tight text-brand-dark">

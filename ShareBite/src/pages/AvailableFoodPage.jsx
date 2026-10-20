@@ -1,24 +1,70 @@
+import { useState } from "react";
 import foodCoverImage from "../assets/available-food-page-cover-image.jpg";
 import FoodCard from "../components/FoodCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import SiteHeader from "../components/SiteHeader.jsx";
+import { loadPosts } from "../utils/postsStorage.js";
 
-const availableFood = [
+const sampleFood = [
   {
+    id: "sample-buns",
     title: "Fresh Buns",
     description: "20 buns from City Bakery. Pick up before 8:00 PM.",
   },
   {
+    id: "sample-vegetables",
     title: "Fresh Vegetables",
     description: "Surplus carrots and cabbage from the local market.",
   },
   {
+    id: "sample-meals",
     title: "Packed Meals",
     description: "10 rice and curry packs left over from an event.",
+  },
+  {
+    id: "sample-bananas",
+    title: "Ripe Bananas",
+    description: "2 kg of ripe bananas from a fruit stall. Best eaten today.",
+  },
+  {
+    id: "sample-bread",
+    title: "Bread Loaves",
+    description:
+      "8 sliced bread loaves, baked this morning. Pick up before 6:00 PM.",
+  },
+  {
+    id: "sample-rolls",
+    title: "Fish Rolls",
+    description:
+      "25 fish rolls from a tea shop. Collect from the counter today.",
+  },
+  {
+    id: "sample-rice",
+    title: "Rice Packets",
+    description: "5 kg of rice in small packets from a wedding. Unopened.",
+  },
+  {
+    id: "sample-fruits",
+    title: "Mixed Fruits",
+    description: "Papaya and pineapple pieces from a juice bar. Fresh today.",
+  },
+  {
+    id: "sample-tea",
+    title: "Milk Tea Packs",
+    description:
+      "15 sealed tea packets from a hotel. Collect from the front desk.",
   },
 ];
 
 function AvailableFoodPage() {
+  const [posts] = useState(loadPosts);
+
+  // Newest community posts first, then the sample food
+  const allFood = [...posts, ...sampleFood];
+
+  // allFood always has the samples, so [0] is safe
+  const latest = allFood[0];
+
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans text-ink">
       <SiteHeader foodPage />
@@ -54,13 +100,15 @@ function AvailableFoodPage() {
               alt="Fresh surplus food ready to share"
               className="aspect-4/5 w-full rounded-3xl object-cover shadow-2xl shadow-brand/10 md:aspect-square"
             />
-            <div className="absolute -bottom-5 left-5 rounded-2xl bg-white px-5 py-4 shadow-xl shadow-brand/15">
+            <div className="absolute -bottom-5 left-5 max-w-[80%] rounded-2xl bg-white px-5 py-4 shadow-xl shadow-brand/15">
               <div className="flex items-center gap-2 text-sm font-bold text-brand">
                 <span className="size-2.5 rounded-full bg-emerald-500" />
                 Available now
               </div>
-              <p className="mt-1 font-bold">20 fresh buns</p>
-              <p className="text-sm text-muted">Pick up before 8:00 PM</p>
+              <p className="mt-1 truncate font-bold">{latest.title}</p>
+              <p className="line-clamp-2 text-sm text-muted">
+                {latest.description}
+              </p>
             </div>
           </div>
         </section>
@@ -71,12 +119,17 @@ function AvailableFoodPage() {
               Available now
             </h2>
             <p className="mt-2 text-muted">
-              Pick what you need and collect it on time.
+              {allFood.length} items ready to collect. Pick what you need and
+              collect it on time.
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {availableFood.map((food) => (
-                <FoodCard key={food.title} {...food} />
+              {allFood.map((food) => (
+                <FoodCard
+                  key={food.id}
+                  title={food.title}
+                  description={food.description}
+                />
               ))}
             </div>
           </div>
