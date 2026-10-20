@@ -38,19 +38,19 @@ function HomeHero() {
               <span className="size-2.5 rounded-full bg-emerald-500" />
               Available now
             </div>
-            <h2 className="mt-3.5 text-[1.6rem] leading-tight font-bold text-ink">
-              20 fresh buns
-            </h2>
-            <p className="mt-1 text-muted">City Bakery, Main Street</p>
-            <div className="mt-4.5 flex items-center justify-between text-sm text-muted">
-              <span>Pick up before 8:00 PM</span>
-              <span className="rounded-full bg-amber-100 px-3 py-0.5 font-bold text-amber-800">
-                Free
-              </span>
-            </div>
-            <div className="mt-5 rounded-full bg-brand p-3 text-center font-bold text-white">
-              Claim this food
-            </div>
+              <h2 className="mt-3.5 text-[1.6rem] leading-tight font-bold text-ink">
+                20 fresh buns
+              </h2>
+              <p className="mt-1 text-muted">City Bakery, Main Street</p>
+              <div className="mt-4.5 flex items-center justify-between text-sm text-muted">
+                <span>Pick up before 8:00 PM</span>
+                <span className="rounded-full bg-amber-100 px-3 py-0.5 font-bold text-amber-800">
+                  Free
+                </span>
+              </div>
+              <div className="mt-5 rounded-full bg-brand p-3 text-center font-bold text-white">
+                Claim this food
+              </div>
           </div>
           <div className="absolute -top-2.5 right-0 size-65 rounded-full bg-mango opacity-35" />
           <div className="absolute -bottom-2.5 left-2.5 size-45 rounded-full bg-tomato opacity-18" />

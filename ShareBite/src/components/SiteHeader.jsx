@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 const navigationLinks = [
   { label: "Home", to: "/" },
   { label: "Available Food", to: "/food" },
-  { label: "Requests", href: "/#features" },
+  { label: "Posts", to: "/posts" },
   { label: "Tracking", href: "/#about" },
-  { label: "Posts", href: "/#contact" },
   { label: "Login", href: "/#contact" },
   { label: "Contact", href: "/#contact" },
 ];
