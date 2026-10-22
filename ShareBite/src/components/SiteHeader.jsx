@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Contact from "../pages/Contact";
-import Posts from "../pages/Posts";
-import LoginPage from "../pages/LoginPage";
 
 const navigationLinks = [
   { label: "Home", to: "/" },
@@ -27,6 +24,14 @@ function SiteHeader({ foodPage = false }) {
 
     return () => window.removeEventListener("scroll", updateScrollState);
   }, []);
+
+  // ShareBite AI button click handler.
+  // TODO: Connect this to the backend later.
+  // Ideas: open a chat panel, or navigate("/ai") using useNavigate().
+  const handleAiClick = () => {
+    setIsMenuOpen(false); // close the mobile menu first
+    console.log("ShareBite AI clicked - backend not connected yet");
+  };
 
   if (foodPage) {
     return (
@@ -56,6 +61,7 @@ function SiteHeader({ foodPage = false }) {
           Share<span className="text-tomato">Bite</span>
         </Link>
 
+        {/* Hamburger button (mobile only) */}
         <button
           type="button"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -68,8 +74,9 @@ function SiteHeader({ foodPage = false }) {
           <span className="my-1.25 block h-0.5 w-6 bg-brand transition group-aria-expanded:-translate-y-1.75 group-aria-expanded:-rotate-45" />
         </button>
 
+        {/* md:items-center keeps all links and the AI button on the same line */}
         <nav
-          className={`${isMenuOpen ? "block" : "hidden"} absolute inset-x-0 top-17 border-b border-line bg-white px-[4%] py-2 md:static md:flex md:gap-1.5 md:border-0 md:bg-transparent md:p-0`}
+          className={`${isMenuOpen ? "block" : "hidden"} absolute inset-x-0 top-17 border-b border-line bg-white px-[4%] py-2 md:static md:flex md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0`}
         >
           {navigationLinks.map(({ label, to, href }) =>
             to ? (
@@ -92,6 +99,29 @@ function SiteHeader({ foodPage = false }) {
               </a>
             ),
           )}
+
+          {/* ===== ShareBite AI button =====
+              - Stands out from normal links with a green-to-tomato gradient.
+              - md:ml-2 adds a small gap between Contact and this button.
+              - On mobile it is full width (w-full); on desktop it fits its text (md:w-auto).
+              - The sparkle icon is the usual "AI" symbol.
+              - Later: replace handleAiClick with real logic. */}
+          <button
+            type="button"
+            onClick={handleAiClick}
+            className="my-2 flex w-full items-center justify-center gap-1.5 rounded-full bg-linear-to-r from-brand to-tomato px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:shadow-md hover:brightness-110 active:scale-95 md:my-0 md:ml-2 md:w-auto"
+          >
+            {/* Sparkle icon (inline SVG, no extra library needed) */}
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2zm7 11l.9 2.6L22.5 16.5l-2.6.9L19 20l-.9-2.6-2.6-.9 2.6-.9L19 13z" />
+            </svg>
+            ShareBite AI
+          </button>
         </nav>
       </div>
     </header>
