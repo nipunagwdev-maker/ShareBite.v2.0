@@ -1,19 +1,63 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Contact from "../pages/Contact";
-import Posts from "../pages/Posts";
-import LoginPage from "../pages/LoginPage";
 
 const navigationLinks = [
   { label: "Home", to: "/" },
   { label: "Available Food", to: "/food" },
   { label: "Posts", to: "/posts" },
-  { label: "Login", to: "/LoginPage" },
-  { label: "Contact", to: "/Contact" },
+  { label: "Login", to: "/loginpage" },
+  { label: "Contact", to: "/contact" },
 ];
 
 const linkStyle =
   "block rounded-lg px-2 py-3.5 font-medium text-muted transition-colors hover:bg-tint hover:text-brand md:rounded-full md:px-3.5 md:py-2";
+
+const aiButtonStyle =
+  "cursor-pointer rounded-full bg-tomato px-5 py-2 text-sm font-bold text-white transition hover:bg-tomato-dark active:scale-95";
+
+// ---- Botpress loader ----
+const BOTPRESS_SCRIPTS = [
+  "https://cdn.botpress.cloud/webchat/v5.0/inject.js",
+  "https://files.bpcontent.cloud/2026/10/22/16/20261022164713-9LA7PMBN.js",
+];
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.body.appendChild(script);
+  });
+}
+
+// Saved outside the component, so the scripts load only ONE time,
+// even though SiteHeader is created again on every page.
+let botpressPromise = null;
+
+function loadBotpress() {
+  if (!botpressPromise) {
+    // Load one after the other: inject.js first, then your bot config
+    botpressPromise = BOTPRESS_SCRIPTS.reduce(
+      (previous, src) => previous.then(() => loadScript(src)),
+      Promise.resolve(),
+    ).catch((error) => {
+      botpressPromise = null; // allow a retry if loading failed
+      console.error("Botpress failed to load:", error);
+    });
+  }
+  return botpressPromise;
+}
+
+function openChat() {
+  // NOTE: confirm this command for Botpress v5.0 (see "Verify" below)
+  if (window.botpress?.open) {
+    window.botpress.open();
+  } else {
+    console.warn("Botpress is not ready yet. Try again in a moment.");
+  }
+}
+// -------------------------
 
 function SiteHeader({ foodPage = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,6 +72,10 @@ function SiteHeader({ foodPage = false }) {
     return () => window.removeEventListener("scroll", updateScrollState);
   }, []);
 
+  useEffect(() => {
+    loadBotpress();
+  }, []);
+
   if (foodPage) {
     return (
       <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
@@ -35,12 +83,17 @@ function SiteHeader({ foodPage = false }) {
           <Link to="/" className="text-2xl font-bold tracking-tight text-brand">
             Share<span className="text-tomato">Bite</span>
           </Link>
-          <a
-            href="#food-list"
-            className="rounded-full bg-brand px-5 py-2 text-sm font-bold text-white transition hover:bg-brand-dark active:scale-95"
-          >
-            Claim your food now
-          </a>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={openChat} className={aiButtonStyle}>
+              AI Assistant
+            </button>
+            <a
+              href="#food-list"
+              className="rounded-full bg-brand px-5 py-2 text-sm font-bold text-white transition hover:bg-brand-dark active:scale-95"
+            >
+              Claim your food now
+            </a>
+          </div>
         </div>
       </header>
     );
@@ -69,7 +122,7 @@ function SiteHeader({ foodPage = false }) {
         </button>
 
         <nav
-          className={`${isMenuOpen ? "block" : "hidden"} absolute inset-x-0 top-17 border-b border-line bg-white px-[4%] py-2 md:static md:flex md:gap-1.5 md:border-0 md:bg-transparent md:p-0`}
+          className={`${isMenuOpen ? "block" : "hidden"} absolute inset-x-0 top-17 border-b border-line bg-white px-[4%] py-2 md:static md:flex md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0`}
         >
           {navigationLinks.map(({ label, to, href }) =>
             to ? (
@@ -92,6 +145,17 @@ function SiteHeader({ foodPage = false }) {
               </a>
             ),
           )}
+
+          <button
+            type="button"
+            onClick={() => {
+              openChat();
+              setIsMenuOpen(false);
+            }}
+            className={`${aiButtonStyle} mt-2 w-full md:ml-2 md:mt-0 md:w-auto`}
+          >
+            AI Assistant
+          </button>
         </nav>
       </div>
     </header>

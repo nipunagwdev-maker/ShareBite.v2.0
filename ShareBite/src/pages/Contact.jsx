@@ -20,11 +20,11 @@ const contactDetails = [
 
 function Contact() {
   return (
-    <div className="flex min-h-screen flex-col bg-white font-sans text-ink">
+    <div className="flex min-h-screen flex-col bg-white font-sans text-ink object-center">
       <SiteHeader />
 
       <main className="flex-1">
-        <section className="mx-auto max-w-2xl px-6 pt-14 text-center md:pt-20">
+        <section className="mx-auto max-w-2xl px-6 pt-14 text-center md:pt-40">
           <h1 className="text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl">
             Contact us
           </h1>
