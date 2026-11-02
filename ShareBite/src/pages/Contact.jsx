@@ -91,7 +91,7 @@ function Contact() {
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="mt-2 block break-words font-bold text-brand transition hover:text-tomato"
+                    className="mt-2 block wrap-break-words font-bold text-brand transition hover:text-tomato"
                   >
                     {item.value}
                   </a>
