@@ -203,7 +203,6 @@ function Contact() {
                   htmlFor="message"
                   className="mb-2 block text-sm font-semibold text-brand-dark"
                 >
-                  
                   Your message
                 </label>
                 <textarea
