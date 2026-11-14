@@ -1,15 +1,50 @@
 const teamMembers = [
-  { initials: "AS", role: "Team Lead", name: "Anuja Silva", color: "bg-brand" },
+  {
+    initials: "AS",
+    role: "Back End/Server Side",
+    name: "Anuja Silva",
+    color: "bg-brand",
+  },
   {
     initials: "NM",
-    role: "Front-End",
+    role: "Front-End + Ai bot",
     name: "Nipuna Madhuranga",
     color: "bg-tomato",
   },
   {
     initials: "TP",
-    role: "Data Base",
+    role: "UI/UX Design",
     name: "Thushaniga Paramanathan",
+    color: "bg-tomato",
+  },
+  {
+    initials: "IS",
+    role: "Testing",
+    name: "Ishara Sewmini",
+    color: "bg-mango text-brand-dark",
+  },
+  {
+    initials: "HH",
+    role: "Team Member",
+    name: "Hashini",
+    color: "bg-mango text-brand-dark",
+  },
+  {
+    initials: "HH",
+    role: "Team Member",
+    name: "Hashini",
+    color: "bg-mango text-brand-dark",
+  },
+  {
+    initials: "HH",
+    role: "Team Member",
+    name: "Hashini",
+    color: "bg-mango text-brand-dark",
+  },
+  {
+    initials: "HH",
+    role: "Team Member",
+    name: "Hashini",
     color: "bg-mango text-brand-dark",
   },
 ];
