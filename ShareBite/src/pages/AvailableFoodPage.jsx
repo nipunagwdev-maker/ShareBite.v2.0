@@ -1,106 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import foodCoverImage from "../assets/available-food-page-cover-image.jpg";
 import FoodCard from "../components/FoodCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import SiteHeader from "../components/SiteHeader.jsx";
-import { loadPosts } from "../utils/postsStorage.js";
+import { supabase } from "../lib/supabaseClient.js";
 
 // Sample donations for demonstration
-const sampleFood = [
-  {
-    id: "sample-1",
-    title: "Fresh Rice & Curry",
-    description: "Freshly prepared rice with vegetable curry and dhal.",
-    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800",
-    category: "Cooked Meals",
-    quantity: 15,
-    unit: "meal packets",
-    preparedAt: "Today, 11:30 AM",
-    expiresAt: "Today, 5:00 PM",
-    location: "Kuliyapitiya Town",
-    storage: "Keep refrigerated",
-    allergens: ["Dairy"],
-    status: "Available",
-  },
-  {
-    id: "sample-2",
-    title: "Fresh Bakery Buns",
-    description: "Freshly baked soft buns. Perfect for breakfast or snacks.",
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800",
-    category: "Bakery & Bread",
-    quantity: 25,
-    unit: "pieces",
-    preparedAt: "Today, 8:00 AM",
-    expiresAt: "Tomorrow, 8:00 AM",
-    location: "Kurunegala Town",
-    storage: "Room temperature",
-    allergens: ["Wheat", "Gluten"],
-    status: "Available",
-  },
-  {
-    id: "sample-3",
-    title: "Fresh Bananas",
-    description: "Fresh ripe bananas available from a local fruit shop.",
-    image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800",
-    category: "Fruits",
-    quantity: 5,
-    unit: "kg",
-    preparedAt: "Today, 9:00 AM",
-    expiresAt: "Tomorrow, 9:00 AM",
-    location: "Kuliyapitiya Market",
-    storage: "Room temperature",
-    allergens: [],
-    status: "Available",
-  },
-  {
-    id: "sample-4",
-    title: "Fresh Vegetable Pack",
-    description: "A selection of fresh carrots, tomatoes and green vegetables.",
-    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800",
-    category: "Vegetables",
-    quantity: 10,
-    unit: "packets",
-    preparedAt: "Today, 7:00 AM",
-    expiresAt: "Tomorrow, 7:00 AM",
-    location: "Narammala Town",
-    storage: "Keep refrigerated",
-    allergens: [],
-    status: "Available",
-  },
-  {
-    id: "sample-5",
-    title: "Fresh Milk Bottles",
-    description: "Unopened fresh milk bottles available for collection.",
-    image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800",
-    category: "Dairy Products",
-    quantity: 8,
-    unit: "pieces",
-    preparedAt: "Today, 6:00 AM",
-    expiresAt: "Tomorrow, 6:00 AM",
-    location: "Pannala Town",
-    storage: "Keep refrigerated",
-    allergens: ["Milk"],
-    status: "Available",
-  },
-  {
-    id: "sample-6",
-    title: "Fresh Vegetable Rice",
-    description: "Homemade vegetable fried rice packed and ready to share.",
-    image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800",
-    category: "Cooked Meals",
-    quantity: 12,
-    unit: "meal packets",
-    preparedAt: "Today, 12:00 PM",
-    expiresAt: "Today, 6:00 PM",
-    location: "Wayamba University",
-    storage: "Keep refrigerated",
-    allergens: ["Soy"],
-    status: "Available",
-  },
-];
+const sampleFood = [];
 
 function AvailableFoodPage() {
-  const [posts] = useState(loadPosts);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const { data, error } = await supabase
+        .from("food_posts")
+        .select("*")
+        .eq("status", "Available")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error(error.message);
+      } else {
+        setPosts(data);
+      }
+    }
+
+    fetchPosts();
+  }, []);
 
   // Keep community donations separate from sample donations
   const allFood = [...posts, ...sampleFood];

@@ -2,7 +2,7 @@ const teamMembers = [
   {
     initials: "AS",
     role: "Back End/Server Side",
-    name: "Anuja Silva",
+    name: "Anuja De Silva",
     color: "bg-brand",
   },
   {
@@ -19,32 +19,32 @@ const teamMembers = [
   },
   {
     initials: "IS",
-    role: "Testing",
+    role: "Team Member",
     name: "Ishara Sewmini",
     color: "bg-mango text-brand-dark",
   },
   {
-    initials: "HH",
+    initials: "PH",
     role: "Team Member",
-    name: "Hashini",
+    name: "Praveen Herath",
+    color: "bg-mango text-brand-dark",
+  },
+  {
+    initials: "SS",
+    role: "Team Member",
+    name: "Sandun Sudasinghe",
     color: "bg-mango text-brand-dark",
   },
   {
     initials: "HH",
     role: "Team Member",
-    name: "Hashini",
+    name: "Hashini Silva",
     color: "bg-mango text-brand-dark",
   },
   {
-    initials: "HH",
+    initials: "RY",
     role: "Team Member",
-    name: "Hashini",
-    color: "bg-mango text-brand-dark",
-  },
-  {
-    initials: "HH",
-    role: "Team Member",
-    name: "Hashini",
+    name: "RYG Dona",
     color: "bg-mango text-brand-dark",
   },
 ];
